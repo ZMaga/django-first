@@ -2,9 +2,20 @@
 
 {% block content %}
     {% if authors|length > 0 %}
+        <h1>Зарегистрированные авторы:</h1>
+        <a class="btn btn-default" href="{% url 'author_sort_by_articles' %}">
+            <span class="glyphicon glyphicon-arrow-up"></span>
+        </a>
+        <a class="btn btn-default" href="{% url 'author_sort_by_articles_reverse' %}">
+            <span class="glyphicon glyphicon-arrow-down"></span>
+        </a>
         {% for author in authors %}
             <div>
-                <h1><a href="{% url 'author_detail' pk=author.pk %}">{{ author.name }}</a></h1>
+                <h3><a href="{% url 'author_detail' pk=author.pk %}">{{ author.name }}</a>
+                {% if author.articles__count >= 0 %}
+                    (количество статей: {{author.articles__count}})
+                {% endif %}
+                </h3>
             </div>
         {% endfor %}
     {% else %}

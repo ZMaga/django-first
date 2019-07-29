@@ -1,12 +1,27 @@
 {% extends 'authors_app/base.html' %}
 
 {% block content %}
+    <div class="article">
     {% if articles|length > 0 %}
         <h1>Статьи в каталоге:</h1>
+        <a class="btn btn-default" href="{% url 'article_sort_by_authors' %}">
+            <span class="glyphicon glyphicon-arrow-up"></span>
+        </a>
+        <a class="btn btn-default" href="{% url 'article_sort_by_authors_reverse' %}">
+            <span class="glyphicon glyphicon-arrow-down"></span>
+        </a>
         {% for article in articles %}
-            <h3><li><a href="{% url 'article_detail' pk=article.pk %}">{{ article.title }}</a></li></h3>
+            <h3>
+                <li>
+                    <a href="{% url 'article_detail' pk=article.pk %}">{{ article.title }}</a>
+                    {% if article.authors__count %}
+                        (количество авторов: {{article.authors__count}} )
+                    {% endif %}
+                </li>
+            </h3>
         {% endfor %}
     {% else %}
         <h1>В каталоге нет статей</h1>
     {% endif%}
+    </div>
 {% endblock %}

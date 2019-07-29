@@ -3,13 +3,14 @@
 {% block content %}
     <h1>{{ page_title }}</h1>
     <h4>
-        Автор{%if authors_list|length > 1 %}ы{% endif %}:
+        {% if authors_list %}
+        Автор{%if authors_list|length > 1 %}ы{% endif %}:&nbsp;&nbsp;
+        {% endif %}
         {% for author in authors_list%}{{author}}{% if not forloop.last %}, {% endif %}{% endfor%}
     </h4>
     <form method="POST" class="article-form">
     	{% csrf_token %}
         {{ author_form.as_p }}
-         <!--<a href="{% url 'article_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>-->
         {{ article_form.as_p }}
         <button type="submit" class="save btn btn-default">Save</button>
     </form>
