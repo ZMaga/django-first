@@ -2,17 +2,19 @@
 <html>
     <head>
         <title>Authors & Articles</title>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" type='text/css'>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" type='text/css'>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic" type="text/css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Serif+Pro&display=swap">
         <link rel="stylesheet" href="{% static 'css/authors_app.css' %}">
     </head>
     <body>
         <div class="page-header">
             {% if user.is_authenticated %}
-            <a href="{% url 'article_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
             <a href="{% url 'author_list' %}" class="top-menu"><span class="glyphicon glyphicon-list"></span></a>
+            <a href="{% url 'article_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
             {% endif %}
-            <h1><a href="/">Authors & Articles</a></h1>
+            <h1><a href="/" class="title">Authors & Articles</a></h1>
         </div>
         <div class="content container">
             <div class="row">
