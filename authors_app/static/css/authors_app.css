@@ -1,5 +1,5 @@
-save btn btn-default.page-header {
-    background-color: #ff9400;
+.page-header {
+    background-color: #73ACD1;
     margin-top: 0;
     padding: 20px 20px 20px 40px;
 }
@@ -14,8 +14,12 @@ save btn btn-default.page-header {
     margin-left: 40px;
 }
 
-h1, h2, h3, h4 {
+.title {
     font-family: 'Lobster', cursive;
+}
+
+h1, h2, h3, h4{
+    font-family: 'Source Serif Pro', serif;
 }
 
 .date {
@@ -33,8 +37,9 @@ h1, h2, h3, h4 {
 .top-menu, .top-menu:hover, .top-menu:visited {
     color: #ffffff;
     float: right;
-    font-size: 26pt;
+    font-size: 24pt;
     margin-right: 20px;
+    margin-top: 20px;
 }
 
 .article {
