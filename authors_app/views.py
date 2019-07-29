@@ -1,14 +1,28 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.db.models import Count
 from .models import Articles, Authors
 from .forms import AuthorForm, ArticleForm
 
 
 def article_list(request):
     articles = Articles.objects.all()
-    authors = Authors.objects.all()
     return render(request, 'authors_app/article_list.html', context={
         'articles': articles,
-        'authors': authors
+    })
+
+
+def article_sort_by_authors(request):
+    articles = Articles.objects.annotate(Count('authors')).order_by("authors__count").reverse()
+    return render(request, 'authors_app/article_list.html', context={
+        'articles': articles,
+    })
+
+
+def article_sort_by_authors_reverse(request):
+    articles = Articles.objects.annotate(Count('authors')).order_by("authors__count")
+
+    return render(request, 'authors_app/article_list.html', context={
+        'articles': articles,
     })
 
 
@@ -27,31 +41,35 @@ def article_edit(request, pk):
 
     if request.method == "POST":
         article_form = ArticleForm(request.POST, instance=article)
-        if article_form.is_valid():
-            # print(article_form.cleaned_data.get("bebe"))
+        author_form = AuthorForm(request.POST)
+
+        if article_form.is_valid() and author_form.is_valid():
             article = article_form.save(commit=False)
+            author = author_form.save(commit=False)
+
+            # add for article if the author is registred
+            if Authors.objects.filter(name=author.name):
+                author = Authors.objects.get(name=author.name)
+                article.authors.add(author)
+
             article.save()
 
             return redirect('article_detail', pk=article.pk)
     else:
         article_form = ArticleForm(instance=article)
+        author_form = AuthorForm()
+        author_form.fields['name'].label = "Добавить автора"
+        print(article_form.fields['title'].label)
 
     article = Articles.objects.get(pk=pk)
     authors_list = [d['name'] for d in (list(article.authors.values('name')))]
 
     return render(request, 'authors_app/article_edit.html', context={
         'article_form': article_form,
+        'author_form': author_form,
         'page_title': page_title,
         'authors_list': authors_list,
         'article': article
-    })
-
-
-def add_author(request):
-    author_form = AuthorForm()
-
-    return render(request, 'authors_app/article_edit.html', context={
-        'author_form': author_form,
     })
 
 
@@ -111,13 +129,49 @@ def article_remove(request, pk):
 
 def author_list(request):
     authors = Authors.objects.all()
-    return render(request, 'authors_app/author_list.html', {'authors': authors})
+    return render(request, 'authors_app/author_list.html', context={'authors': authors})
+
+
+def author_sort_by_articles(request):
+    authors = Authors.objects.annotate(Count('articles')).\
+        order_by("articles__count").reverse()
+    return render(request, 'authors_app/author_list.html', context={'authors': authors})
+
+
+def author_sort_by_articles_reverse(request):
+    authors = Authors.objects.annotate(Count('articles')).\
+        order_by("articles__count")
+    return render(request, 'authors_app/author_list.html', context={'authors': authors})
 
 
 def author_detail(request, pk):
     author = get_object_or_404(Authors, pk=pk)
     return render(request, 'authors_app/author_detail.html', context={
         'author': author
+    })
+
+
+def author_new(request):
+    page_title = 'Регистрация автора'
+
+    if request.method == "POST":
+        author_form = AuthorForm(request.POST)
+        if author_form.is_valid():
+            author_inst = author_form.save(commit=False)
+
+            # if the author exists with this name, don't create
+            if not Authors.objects.filter(name=author_inst.name):
+                author = author_form.save()
+            else:
+                author = Authors.objects.get(name=author_inst.name)
+
+            return redirect('author_detail', pk=author.pk)
+    else:
+        author_form = AuthorForm()
+
+    return render(request, 'authors_app/author_edit.html', context={
+        'author_form': author_form,
+        'page_title': page_title,
     })
 
 
