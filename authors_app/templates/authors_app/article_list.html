@@ -1,13 +1,12 @@
 {% extends 'authors_app/base.html' %}
 
 {% block content %}
-    {% for article in articles %}
-        <div class="article">
-            <div class="date">
-                {{ article.published_date }}
-            </div>
-            <h1><a href="">{{ article.title }}</a></h1>
-            <p>{{ article.text|linebreaksbr }}</p>
-        </div>
-    {% endfor %}
+    {% if articles|length > 0 %}
+        <h1>Статьи в каталоге:</h1>
+        {% for article in articles %}
+            <h3><li><a href="{% url 'article_detail' pk=article.pk %}">{{ article.title }}</a></li></h3>
+        {% endfor %}
+    {% else %}
+        <h1>В каталоге нет статей</h1>
+    {% endif%}
 {% endblock %}

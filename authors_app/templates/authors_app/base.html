@@ -10,6 +10,7 @@
         <div class="page-header">
             {% if user.is_authenticated %}
             <a href="{% url 'article_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+            <a href="{% url 'author_list' %}" class="top-menu"><span class="glyphicon glyphicon-list"></span></a>
             {% endif %}
             <h1><a href="/">Authors & Articles</a></h1>
         </div>
@@ -23,7 +24,3 @@
         </div>
     </body>
 </html>
-
-
-
-

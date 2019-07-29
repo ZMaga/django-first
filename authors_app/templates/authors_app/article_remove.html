@@ -1,0 +1,16 @@
+{% extends 'authors_app/base.html' %}
+
+{% block content %}
+    <!--<h1>Пока ничего не произошло, но это случится. Верь в лучшее!</h1>-->
+    <form method="POST" class="article-form">
+    	{% csrf_token %}
+        <h3>Удалена статья "{{title}}", которую создали авторы:<br>
+            <h4>
+                {% for author in authors_list %} <li>{{ author }}</li> {% endfor %}
+            </h4>
+        </h3>
+        <div class="article">
+            <h1><a href="{% url 'article_list' %}">Вернуться к списку статей</a></h1>
+        </div>
+    </form>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'authors_app/base.html' %}
+
+{% block content %}
+    <div class="article">
+        {% if user.is_authenticated %}
+        	<a class="btn btn-default" href="{% url 'author_edit' pk=author.pk %}">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </a>
+            <a class="btn btn-default" href="{% url 'author_remove' pk=author.pk %}">
+                <span class="glyphicon glyphicon-remove"></span>
+            </a>
+        {% endif %}
+        <h2>{{author.name}}</h2>
+        <h4>
+            Количество статей: {{author.articles.count}}<br><br>
+            {% if author.articles.count > 0 %}
+            Статьи:
+            {% for article in author.articles.all %}<li>{{ article.title }}</li>{% endfor %}
+            {% endif %}
+        </h4>
+    </div>
+{% endblock %}
