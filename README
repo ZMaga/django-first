@@ -37,3 +37,16 @@ requirements.txt
 Запуск:
 =======
 python3 manage.py runserver
+
+API:
+====
+http://127.0.0.1:8000/api/articles/
+http://127.0.0.1:8000/api/authors/
+http://127.0.0.1:8000/api/publications/
+
+Администратор:
+==============
+login: admin
+password: f2line.123
+
+
