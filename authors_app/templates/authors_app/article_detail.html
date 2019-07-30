@@ -6,8 +6,6 @@
         <h4>
             Автор{%if article.publications.all|length > 1 %}ы{% endif %}:
             {% for author in authors %}{{ author.name }}{% if not forloop.last %}, {% endif %}{% endfor %}
-            <br>
-            Дата создания: {{article.publications.publication_date}}
         </h4>
         <br>
         {% if user.is_authenticated %}
