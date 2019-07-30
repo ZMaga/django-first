@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.db import models
 
 
@@ -10,9 +11,15 @@ class Authors(models.Model):
 
 class Articles(models.Model):
     title = models.CharField(max_length=200, null=False)
-    # TODO: set not null
-    text = models.TextField()
-    authors = models.ManyToManyField(Authors, related_name='articles')
+    text = models.TextField(null=False)
+    publications = models.ManyToManyField(Authors, through='Publication')
 
     def __str__(self):
         return self.title
+
+
+class Publication(models.Model):
+    author = models.ForeignKey(Authors, on_delete=models.CASCADE)
+    article = models.ForeignKey(Articles, on_delete=models.CASCADE)
+    publication_date = models.DateTimeField(default=timezone.now, null=True)
+

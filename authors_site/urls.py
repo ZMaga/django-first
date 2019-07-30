@@ -16,7 +16,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from rest_framework import routers
+from authors_app import views
+
+# urlpatterns = [
+#     path('admin/', admin.site.urls),
+#     path('', include('authors_app.urls')),
+# ]
+
+router = routers.DefaultRouter()
+router.register(r'api/articles', views.ArticlesViewSet)
+router.register(r'api/authors', views.AuthorsViewSet)
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('authors_app.urls')),
+    path('', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

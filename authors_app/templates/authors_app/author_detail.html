@@ -12,10 +12,10 @@
         {% endif %}
         <h2>{{author.name}}</h2>
         <h4>
-            Количество статей: {{author.articles.count}}<br><br>
-            {% if author.articles.count > 0 %}
+            Количество статей: {{author.articles_set.count}}<br><br>
+            {% if author.articles_set.count > 0 %}
             Статьи:
-            {% for article in author.articles.all %}<li>{{ article.title }}</li>{% endfor %}
+            {% for article in author.articles_set.all %}<li>{{ article.title }}</li>{% endfor %}
             {% endif %}
         </h4>
     </div>

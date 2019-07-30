@@ -21,4 +21,4 @@ class ArticleForm(forms.ModelForm):
             "title": "Название статьи",
             "text": "Текст статьи"
         }
-        exclude = ['authors']
+        exclude = ['publications']

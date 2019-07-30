@@ -14,8 +14,8 @@
             <h3>
                 <li>
                     <a href="{% url 'article_detail' pk=article.pk %}">{{ article.title }}</a>
-                    {% if article.authors__count %}
-                        (количество авторов: {{article.authors__count}} )
+                    {% if article.publications__count %}
+                        (количество авторов: {{article.publications__count}} )
                     {% endif %}
                 </li>
             </h3>
