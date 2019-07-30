@@ -4,7 +4,7 @@ from .models import Articles, Authors, Publication
 from .forms import AuthorForm, ArticleForm
 
 from rest_framework import viewsets
-from .serializers import ArticlesSerializer, AuthorsSerializer
+from .serializers import ArticlesSerializer, AuthorsSerializer, PublicationSerializer
 
 
 class ArticlesViewSet(viewsets.ModelViewSet):
@@ -21,6 +21,14 @@ class AuthorsViewSet(viewsets.ModelViewSet):
     """
     queryset = Authors.objects.all()
     serializer_class = AuthorsSerializer
+
+
+class PublicationViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows authors to be viewed or edited.
+    """
+    queryset = Publication.objects.all()
+    serializer_class = PublicationSerializer
 
 
 def article_list(request):

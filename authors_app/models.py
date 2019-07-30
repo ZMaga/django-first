@@ -21,5 +21,7 @@ class Articles(models.Model):
 class Publication(models.Model):
     author = models.ForeignKey(Authors, on_delete=models.CASCADE)
     article = models.ForeignKey(Articles, on_delete=models.CASCADE)
-    publication_date = models.DateTimeField(default=timezone.now, null=True)
+
+    # publication_date = models.DateTimeField(auto_now_add=True, null=True)
+    # publication_date = models.DateTimeField(default=timezone.now, null=True)
 
