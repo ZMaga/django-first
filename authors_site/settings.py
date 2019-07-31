@@ -25,7 +25,7 @@ SECRET_KEY = 'kgbz90v6_o#dso0924@(9txmajlqvs43$*%t2hm7$)c-o*(=6g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-DOCKER = True
+DOCKER = False
 
 ALLOWED_HOSTS = []
 
