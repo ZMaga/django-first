@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:10
+    container_name: "my_postgres"
+  web:
+    build: .
+    command: python3 manage.py runserver 0.0.0.0:8990
+    volumes:
+      - .:/authors_site
+    ports:
+      - "8990:8990"
+    depends_on:
+      - db
