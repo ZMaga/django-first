@@ -1,0 +1,6 @@
+docker-compose run web django-admin startproject django_docker .
+docker-compose run web python3 manage.py migrate
+docker-compose run web python3 manage.py createsuperuser
+docker-compose run web python3 manage.py  makemigrations authors_app
+docker-compose run web python3 manage.py migrate authors_app
+docker-compose up
