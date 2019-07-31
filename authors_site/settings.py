@@ -25,8 +25,13 @@ SECRET_KEY = 'kgbz90v6_o#dso0924@(9txmajlqvs43$*%t2hm7$)c-o*(=6g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+DOCKER = True
+
 ALLOWED_HOSTS = []
 
+if DEBUG:
+   # This value is not safe for production usage. Refer to the Django documentation for more information.
+   ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -85,18 +90,27 @@ WSGI_APPLICATION = 'authors_site.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'authors_db',
-        'USER': 'user_django',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '',
-
+if DOCKER:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'postgres',
+            'USER': 'postgres',
+            'HOST': 'db',
+            'PORT': 5432,
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'authors_db',
+            'USER': 'user_django',
+            'PASSWORD': 'password',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
+    }
 
 
 # Password validation
